@@ -1,4 +1,4 @@
-import CredentialsProvider from './Provider/Credentials1';
+import CredentialsProvider from './Provider/Register';
 import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 import Root from './Pages/Root';
 import Creadentials from './Pages/Creadentials';
