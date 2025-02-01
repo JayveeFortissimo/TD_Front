@@ -1,7 +1,7 @@
 import Creden from "../Components/Creden";
 
 
-const Creadentials = () => {
+const Creadentials: React.FC = () => {
   
   return <Creden />
 

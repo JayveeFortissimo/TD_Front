@@ -1,7 +1,11 @@
 import CredentialsProvider from './Provider/Register';
+import CredentialsProvider2 from './Provider/Login';
 import { createBrowserRouter, RouterProvider} from 'react-router-dom';
+
+//!Pages
 import Root from './Pages/Root';
 import Creadentials from './Pages/Creadentials';
+import UserProfile from './Pages/Profile';
 
 function App() {
 
@@ -11,9 +15,14 @@ function App() {
   path:'/',
   element: <Root />,
   children:[
-    {
-      index:true, element: <Creadentials />
+    { 
+      index:true, 
+      element: <Creadentials />,
     },
+    {
+      path:'Profile',
+      element:<UserProfile />
+    }
 
   ]
 }
@@ -24,10 +33,11 @@ function App() {
   return(
     <>
 
-    <CredentialsProvider>
-    <RouterProvider router={createRoutes} />
+  <CredentialsProvider2>
+   <CredentialsProvider>
+      <RouterProvider router={createRoutes} />
     </CredentialsProvider>
-   
+  </CredentialsProvider2>
     </>
   )
 }

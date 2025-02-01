@@ -13,8 +13,7 @@ type RegisterProps = {
 const Register: React.FC<RegisterProps> = ({handleChange, handleClick, isClicked }) => {
 
   const {handleChanges, user, handleSubmit} = useContext(Creation1);
-
-   
+  
   return (
   <div className="min-h-[100vh] px-6 flex justify-center items-center ">
   
