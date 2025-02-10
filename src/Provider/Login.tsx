@@ -26,9 +26,6 @@ const HandleChange = (type:string,value:string) =>{
    })
 };
 
-
-
-
   return (
     <Creation2.Provider  value={{
       HandleChange,

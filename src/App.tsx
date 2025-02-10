@@ -1,5 +1,7 @@
 import CredentialsProvider from './Provider/Register';
 import CredentialsProvider2 from './Provider/Login';
+import ProfileProvide from './Provider/ProfileProvide';
+import MainData from './Provider/MainData';
 import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 
 //!Pages
@@ -32,12 +34,16 @@ function App() {
 
   return(
     <>
-
-  <CredentialsProvider2>
+  <MainData>
+<ProfileProvide>
+<CredentialsProvider2>
    <CredentialsProvider>
       <RouterProvider router={createRoutes} />
     </CredentialsProvider>
   </CredentialsProvider2>
+  </ProfileProvide>
+  </MainData>
+
     </>
   )
 }
