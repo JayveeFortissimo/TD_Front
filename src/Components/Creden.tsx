@@ -2,9 +2,10 @@ import { LuClipboardPen } from "react-icons/lu";
 import Register from "./Register";
 import Image from '../assets/bg.jpeg';
 import { useState, useContext } from "react";
-import { Creation2, Creation3 } from "../Provider/Context.ts";
+import { Creation2 } from "../Provider/Context.ts";
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+
 
 const Creden: React.FC = () => {
 
@@ -17,37 +18,32 @@ const Creden: React.FC = () => {
 
   const  {HandleChange, credentials} = useContext(Creation2);
 
-  const {setProfile} = useContext(Creation3);
-
-  const handleSubmit = async(e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
-  try{
-  
-    const response = await fetch(`http://localhost:3000/Login`, {
-      method:"POST",
-      headers:{
+    try {
+      const response = await fetch(`http://localhost:3000/Login`, {
+        method: "POST",
+        headers: {
           'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body:JSON.stringify(credentials)
-    });
+        },
+        credentials: 'include',
+        body: JSON.stringify(credentials),
+      });
   
-    const data = await response.json();
- 
-
-    if(data.message === "Credentials doesn't exist!") return toast.error("Credentials doesn't exist!");
-    if(data.message === "Password is not corrected!") return toast.error("Password is not corrected!");
-
-     toast.success("Hi welcome to TODO APP!");
-
-     return navigate('/Profile')
+      const data = await response.json();
   
-  }catch(error){
-    console.log("Server Problem");
+      if (data.message === "Credentials doesn't exist!") return toast.error("Credentials doesn't exist!");
+      if (data.message === "Password is not correct!") return toast.error("Password is not correct!");
+      
+  
+      toast.success("Hi, welcome to the TODO APP!");
+      navigate('/Profile');
+    } catch (error) {
+      console.log("Server Problem", error);
+    }
   }
   
-  }
   
 
   return (

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Creation4 } from "./Context.ts";
 import toast from "react-hot-toast";
+import { io } from "socket.io-client";
 
 type Nodes = {children: React.ReactNode};
 
@@ -15,15 +16,22 @@ type Interaction = {
      cliked: boolean
 }
 
+
+const socket  = io("http://localhost:3000");
+
+
 const MainData: React.FC<Nodes> = ({children}) => {
 
-const [fetchedData, setFetched] = useState<[]>([]);
+const [fetchedData, setFetched] = useState<Datas[]>([]);
+
 
 const [interaction, setInteraction] = useState<Interaction>({
     content_Id: null,
      cliked: false
 });
 
+
+console.log(fetchedData)
 
  const [data, setAllData] = useState<Datas>({
      Title:"",
@@ -69,25 +77,45 @@ try{
 }
 
 
+
+
+const getData = async() =>{
+  try{
+
+    const response = await fetch(`http://localhost:3000/createdTodos`,{
+      method:'GET',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      credentials:'include'
+    });
+
+    const data = await response.json();
+    setFetched(data.data);
+    
+  }catch(error) { console.log(error)};
+} 
+
+
 useEffect(() =>{
-  const getData = async() =>{
-    try{
-
-      const response = await fetch(`http://localhost:3000/createdTodos`,{
-        method:'GET',
-        headers:{
-          'Content-Type': 'application/json'
-        },
-        credentials:'include'
-      });
-
-      const data = await response.json();
-      setFetched(data.data);
-      
-    }catch(error) { console.log(error)};
-  } 
+ 
 
   getData();
+
+  socket.on('connect', () => {
+    console.log('Connected to socket server');
+  });
+
+  socket.on('create', (newMessage:Datas) => {
+    console.log(newMessage)
+     setFetched((pro) => [...pro, newMessage])
+  });
+
+  return () => {
+    socket.off('create');
+   
+  };
+
 },[]);
 
 
@@ -100,7 +128,7 @@ useEffect(() =>{
      handleCreate,
      setInteraction,
      interaction,
-     fetchedData
+     fetchedData,
    }}>
       {children}
     </Creation4.Provider>
