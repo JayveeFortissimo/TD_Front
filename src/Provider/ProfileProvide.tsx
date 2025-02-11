@@ -56,7 +56,7 @@ const ProfileProvide: React.FC<NodeChildren> = ({children}) => {
 
         const data = await response.json();
 
-         if(data === "unauthorize") return console.log("Login First")
+         if(data === "unauthorize") return console.log("Login First");
          setProfile(data.Data[0]);
 
     }catch(error) {

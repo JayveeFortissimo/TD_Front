@@ -31,8 +31,6 @@ const [interaction, setInteraction] = useState<Interaction>({
 });
 
 
-console.log(fetchedData)
-
  const [data, setAllData] = useState<Datas>({
      Title:"",
      Description:"",
